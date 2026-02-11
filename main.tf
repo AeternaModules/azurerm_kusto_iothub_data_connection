@@ -13,6 +13,7 @@ resource "azurerm_kusto_iothub_data_connection" "kusto_iothub_data_connections" 
   database_routing_type     = each.value.database_routing_type
   event_system_properties   = each.value.event_system_properties
   mapping_rule_name         = each.value.mapping_rule_name
+  retrieval_start_date      = each.value.retrieval_start_date
   table_name                = each.value.table_name
 }
 

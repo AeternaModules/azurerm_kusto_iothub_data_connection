@@ -15,6 +15,7 @@ Optional:
     - database_routing_type
     - event_system_properties
     - mapping_rule_name
+    - retrieval_start_date
     - table_name
 EOT
 
@@ -28,9 +29,10 @@ EOT
     resource_group_name       = string
     shared_access_policy_name = string
     data_format               = optional(string)
-    database_routing_type     = optional(string, "Single")
+    database_routing_type     = optional(string) # Default: "Single"
     event_system_properties   = optional(set(string))
     mapping_rule_name         = optional(string)
+    retrieval_start_date      = optional(string)
     table_name                = optional(string)
   }))
 }
