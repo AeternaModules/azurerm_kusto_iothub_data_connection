@@ -1,3 +1,7 @@
+output "kusto_iothub_data_connections_id" {
+  description = "Map of id values across all kusto_iothub_data_connections, keyed the same as var.kusto_iothub_data_connections"
+  value       = { for k, v in azurerm_kusto_iothub_data_connection.kusto_iothub_data_connections : k => v.id }
+}
 output "kusto_iothub_data_connections_cluster_name" {
   description = "Map of cluster_name values across all kusto_iothub_data_connections, keyed the same as var.kusto_iothub_data_connections"
   value       = { for k, v in azurerm_kusto_iothub_data_connection.kusto_iothub_data_connections : k => v.cluster_name }
