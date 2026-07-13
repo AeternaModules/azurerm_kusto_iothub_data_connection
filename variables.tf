@@ -29,20 +29,12 @@ EOT
     resource_group_name       = string
     shared_access_policy_name = string
     data_format               = optional(string)
-    database_routing_type     = optional(string) # Default: "Single"
+    database_routing_type     = optional(string)
     event_system_properties   = optional(set(string))
     mapping_rule_name         = optional(string)
     retrieval_start_date      = optional(string)
     table_name                = optional(string)
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.kusto_iothub_data_connections : (
-        v.event_system_properties == null || (length(v.event_system_properties) > 0)
-      )
-    ])
-    error_message = "must not be empty"
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_kusto_iothub_data_connection's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
@@ -113,6 +105,9 @@ EOT
   #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
   # path: database_routing_type
   #   source:    validation.StringInSlice value list is not a literal []string - likely a generated PossibleValuesFor*() helper; resolve separately
+  # path: event_system_properties[*]
+  #   condition: length(value) > 0
+  #   message:   must not be empty
   # path: retrieval_start_date
   #   source:    validation.IsRFC3339Time(...) - no translation rule yet, add one
 }
